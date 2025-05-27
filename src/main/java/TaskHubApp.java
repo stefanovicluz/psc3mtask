@@ -10,56 +10,66 @@ public class TaskHubApp extends JFrame {
     private final CardLayout cardLayout;
     private final JPanel mainPanel;
 
-    public TaskHubApp() {
+    public TaskHubApp(){
         setTitle("Task Hub Application");
-        setSize(800, 600);
+        setSize(800,600);
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
-        //Tela inicial
+
+        // Tela inicial
         JPanel emptyPanel = new JPanel(new BorderLayout());
-        emptyPanel.add(new JLabel("Bem-vindo! Use o menu para navegar",
+        emptyPanel.add(new JLabel(
+                        "Bem-vindo! Use o Menu para navegar",
                         SwingUtilities.CENTER),
                 BorderLayout.CENTER);
-        //Tela Usuários
-        UsuarioListFrame usuariosPanel = new UsuarioListFrame();
-        //Adicionar Cards no mainPanel
-        mainPanel.add(emptyPanel, EMPTY_SCREEN);
-        mainPanel.add(emptyPanel, USUARIO_SCREEN);
 
-        //Menu
+        // Tela Usuários
+        UsuarioListFrame usuariosPanel = new UsuarioListFrame();
+
+        // Adicionar Cards no mainPanel
+        mainPanel.add(emptyPanel, EMPTY_SCREEN);
+        mainPanel.add(usuariosPanel, USUARIO_SCREEN);
+
+        // Menu
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu("Menu");
+
         JMenuItem loginItem = new JMenuItem("Login");
         JMenuItem usuarioListItem = new JMenuItem("Listar Usuários");
         JMenuItem exitItem = new JMenuItem("Sair");
+
         menu.add(loginItem);
         menu.add(usuarioListItem);
         menu.add(exitItem);
+
         menuBar.add(menu);
         setJMenuBar(menuBar);
+
         add(mainPanel);
 
-        //Eventos
+        // Eventos
         loginItem.addActionListener((ActionEvent e) -> {
             JOptionPane.showMessageDialog(this,
-                    "Login = não foi implementado ainda");
+                    "Login - não foi implementado ainda");
         });
+
         usuarioListItem.addActionListener((ActionEvent e) -> {
-            JOptionPane.showMessageDialog(this,
-                    "Login = não foi implementado ainda");
+            cardLayout.show(mainPanel, USUARIO_SCREEN);
         });
+
         exitItem.addActionListener((ActionEvent e) -> {
             dispose();
         });
     }
 
-
-        public static void main (String[]args){
-            SwingUtilities.invokeLater(() -> {
-                new TaskHubApp().setVisible(true);
-            });
-        }
+    public static void main(String[] args) {
+        System.setProperty("sun.java2d.uiScale", "2.0");
+        SwingUtilities.invokeLater(() -> {
+            new TaskHubApp().setVisible(true);
+        });
     }
+}
